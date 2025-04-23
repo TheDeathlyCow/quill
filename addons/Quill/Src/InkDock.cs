@@ -5,7 +5,7 @@ using Godot;
 using System;
 using System.Linq;
 
-namespace GodotInk;
+namespace Quill;
 
 [Tool]
 public partial class InkDock : VBoxContainer

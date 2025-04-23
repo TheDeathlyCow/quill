@@ -3,7 +3,7 @@
 using Godot;
 using System.Collections.Generic;
 
-namespace GodotInk;
+namespace Quill;
 
 [Tool]
 #if GODOT4_1_OR_GREATER

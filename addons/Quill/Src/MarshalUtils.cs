@@ -4,7 +4,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-namespace GodotInk;
+namespace Quill;
 
 public static class MarshalUtils
 {

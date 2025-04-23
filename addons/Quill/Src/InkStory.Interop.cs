@@ -5,11 +5,11 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 
-using InkChoiceGArray = Godot.Collections.Array<GodotInk.InkChoice>;
+using InkChoiceGArray = Godot.Collections.Array<Quill.InkChoice>;
 using StringGArray = Godot.Collections.Array<string>;
 using VariantGArray = Godot.Collections.Array<Godot.Variant>;
 
-namespace GodotInk;
+namespace Quill;
 
 public partial class InkStory
 {

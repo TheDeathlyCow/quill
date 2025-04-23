@@ -1,6 +1,6 @@
 #nullable enable
 
-namespace GodotInk;
+namespace Quill;
 
 public class InvalidInkException : System.Exception
 {

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://op2d8aagi35f"
-path="res://.godot/imported/GodotInk.svg-0c8ec83d82b5d336ec3fed92ffcbc8bc.ctex"
+path="res://.godot/imported/Quill.svg-3e22b312947c37ebd80680e8999409e5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/GodotInk/GodotInk.svg"
-dest_files=["res://.godot/imported/GodotInk.svg-0c8ec83d82b5d336ec3fed92ffcbc8bc.ctex"]
+source_file="res://addons/Quill/Quill.svg"
+dest_files=["res://.godot/imported/Quill.svg-3e22b312947c37ebd80680e8999409e5.ctex"]
 
 [params]
 

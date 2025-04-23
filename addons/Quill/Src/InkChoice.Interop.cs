@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-namespace GodotInk;
+namespace Quill;
 
 public partial class InkChoice
 {

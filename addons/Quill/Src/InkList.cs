@@ -2,7 +2,7 @@
 
 using Godot;
 
-namespace GodotInk;
+namespace Quill;
 
 #if GODOT4_1_OR_GREATER
 [GlobalClass]

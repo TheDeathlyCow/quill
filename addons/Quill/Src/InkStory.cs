@@ -4,11 +4,11 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-using static GodotInk.MarshalUtils;
+using static Quill.MarshalUtils;
 
 using PropertyList = Godot.Collections.Array<Godot.Collections.Dictionary>;
 
-namespace GodotInk;
+namespace Quill;
 
 [Tool]
 #if GODOT4_1_OR_GREATER

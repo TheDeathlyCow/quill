@@ -15,7 +15,7 @@ using GArrayGictionary = Godot.Collections.Array<Godot.Collections.Dictionary>;
 using GArrayString = Godot.Collections.Array<string>;
 using Gictionary = Godot.Collections.Dictionary;
 
-namespace GodotInk;
+namespace Quill;
 
 [Tool]
 public partial class InkStoryImporter : EditorImportPlugin

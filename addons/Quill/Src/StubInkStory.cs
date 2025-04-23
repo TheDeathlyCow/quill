@@ -2,7 +2,7 @@
 
 using Godot;
 
-namespace GodotInk;
+namespace Quill;
 
 public partial class StubInkStory : InkStory
 {

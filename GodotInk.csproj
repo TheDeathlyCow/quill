@@ -5,5 +5,5 @@
     <RootNamespace>GodotInk</RootNamespace>
     <PublishReferencesDocumentationFiles>false</PublishReferencesDocumentationFiles>
   </PropertyGroup>
-  <Import Project="addons\GodotInk\GodotInk.props" />
+  <Import Project="addons\Quill\GodotInk.props" />
 </Project>
