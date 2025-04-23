@@ -3,7 +3,7 @@ extends EditorPlugin
 
 
 var _importer: EditorImportPlugin
-var _dock: Control
+var _main_panel: Control
 
 
 func _enter_tree() -> void:
@@ -15,9 +15,9 @@ func _enter_tree() -> void:
 	_importer = importer_script.new() as EditorImportPlugin
 	add_import_plugin(_importer)
 
-	var dock_scene : PackedScene = load(src_path.path_join("InkDock.tscn")) as PackedScene
-	_dock = dock_scene.instantiate() as Control
-	add_control_to_bottom_panel(_dock, "Ink preview")
+	var main_panel_scene: PackedScene = load(src_path.path_join("QuillPanel.tscn")) as PackedScene
+	_main_panel = main_panel_scene.instantiate() as Control
+	_make_visible(false)
 	
 	var fs : EditorFileSystem = get_editor_interface().get_resource_filesystem()
 	if not fs.resources_reimported.is_connected(_when_resources_reimported):
@@ -29,10 +29,9 @@ func _exit_tree() -> void:
 	if fs.resources_reimported.is_connected(_when_resources_reimported):
 		fs.resources_reimported.disconnect(_when_resources_reimported)
 
-	if _dock != null:
-		remove_control_from_bottom_panel(_dock)
-		_dock.free()
-		_dock = null
+	if _main_panel != null:
+		_main_panel.queue_free()
+		_main_panel = null
 
 	if _importer != null:
 		remove_import_plugin(_importer)
@@ -53,10 +52,24 @@ func _notification(what : int) -> void:
 
 
 func _when_resources_reimported(resources : PackedStringArray) -> void:
-	if _dock == null:
-		return
+	pass
 
-	for resource in resources:
-		if resource.get_extension() == "ink":
-			_dock.call("WhenInkResourceReimported")
-			return
+
+func _make_visible(visible):
+	if _main_panel:
+		_main_panel.visible = visible
+
+
+# main screen handling
+func _has_main_screen() -> bool:
+	return true
+
+
+func _get_plugin_name() -> String:
+	return "Quill"
+
+
+func _get_plugin_icon() -> Texture2D:
+	var src_path : String = get_script().get_path().get_base_dir()
+
+	return load(src_path.path_join("Quill.svg")) as Texture2D

@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="GodotInk"
+run/main_scene="uid://bs6mjfuuryaqe"
 config/features=PackedStringArray("4.4", "C#")
 config/icon="res://icon.png"
 
