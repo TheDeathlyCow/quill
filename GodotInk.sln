@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quill", "Quill.csproj", "{91EB0550-2844-4783-9D25-95DF670BBE88}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GodotInk", "GodotInk.csproj", "{91EB0550-2844-4783-9D25-95DF670BBE88}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
