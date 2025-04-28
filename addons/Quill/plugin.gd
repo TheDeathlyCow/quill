@@ -53,7 +53,13 @@ func _notification(what : int) -> void:
 
 
 func _when_resources_reimported(resources : PackedStringArray) -> void:
-	pass
+	if _main_panel == null:
+		return
+	
+	for resource in resources:
+		if resource.get_extension() == "ink":
+			_main_panel.call("InkResourceImported", resource)
+			return
 
 
 func _make_visible(visible):

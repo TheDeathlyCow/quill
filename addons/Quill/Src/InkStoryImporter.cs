@@ -9,7 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-
 using DependenciesCache = System.Collections.Generic.Dictionary<string, string[]>;
 using GArrayGictionary = Godot.Collections.Array<Godot.Collections.Dictionary>;
 using GArrayString = Godot.Collections.Array<string>;
@@ -23,14 +22,15 @@ public partial class InkStoryImporter : EditorImportPlugin
     private const string OPT_MAIN_FILE = "is_main_file";
     private const string OPT_COMPRESS = "compress";
 
-    private static readonly Regex INCLUDE_REGEX = new(@"^\s*INCLUDE\s*(?<Path>.*)\s*$", RegexOptions.Multiline | RegexOptions.Compiled);
+    private static readonly Regex INCLUDE_REGEX =
+        new(@"^\s*INCLUDE\s*(?<Path>.*)\s*$", RegexOptions.Multiline | RegexOptions.Compiled);
 
 #pragma warning disable IDE0022
     public override string _GetImporterName() => "ink";
 
     public override string _GetVisibleName() => "Ink story";
 
-    public override string[] _GetRecognizedExtensions() => new string[] { "ink" };
+    public override string[] _GetRecognizedExtensions() => ["ink"];
 
     public override string _GetResourceType() => nameof(Resource);
 
@@ -51,7 +51,8 @@ public partial class InkStoryImporter : EditorImportPlugin
     public override bool _GetOptionVisibility(string path, StringName optionName, Gictionary options) => true;
 #pragma warning restore IDE0022
 
-    public override Error _Import(string sourceFile, string savePath, Gictionary options, GArrayString _, GArrayString __)
+    public override Error _Import(string sourceFile, string savePath, Gictionary options, GArrayString _,
+        GArrayString __)
     {
         UpdateCache(sourceFile, ExtractIncludes(sourceFile));
 
@@ -60,7 +61,8 @@ public partial class InkStoryImporter : EditorImportPlugin
             ? ImportFromInk(sourceFile, destFile, options[OPT_COMPRESS].AsBool())
             : ResourceSaver.Save(new StubInkStory(), destFile);
 
-        string[] additionalFiles = GetCache().Where(kvp => kvp.Value.Contains(sourceFile)).Select(kvp => kvp.Key).ToArray();
+        string[] additionalFiles =
+            GetCache().Where(kvp => kvp.Value.Contains(sourceFile)).Select(kvp => kvp.Key).ToArray();
         foreach (string additionalFile in additionalFiles)
             AppendImportExternalResource(additionalFile);
 
@@ -88,8 +90,9 @@ public partial class InkStoryImporter : EditorImportPlugin
         {
             string storyContent = compiler.Compile().ToJson();
             InkStory resource = InkStory.Create(storyContent);
-            ResourceSaver.SaverFlags flags = shouldCompress ? ResourceSaver.SaverFlags.Compress
-                                                            : ResourceSaver.SaverFlags.None;
+            ResourceSaver.SaverFlags flags = shouldCompress
+                ? ResourceSaver.SaverFlags.Compress
+                : ResourceSaver.SaverFlags.None;
             return ResourceSaver.Save(resource, destFile, flags);
         }
         catch (InvalidInkException)
@@ -102,8 +105,8 @@ public partial class InkStoryImporter : EditorImportPlugin
     {
         using Godot.FileAccess file = Godot.FileAccess.Open(sourceFile, Godot.FileAccess.ModeFlags.Read);
         return INCLUDE_REGEX.Matches(file.GetAsText())
-                           .Select(match => sourceFile.GetBaseDir().PathJoin(match.Groups["Path"].Value.TrimEnd('\r')))
-                           .ToList();
+            .Select(match => sourceFile.GetBaseDir().PathJoin(match.Groups["Path"].Value.TrimEnd('\r')))
+            .ToList();
     }
 
     private static void InkCompilerErrorHandler(string message, ErrorType errorType)
@@ -140,7 +143,7 @@ public partial class InkStoryImporter : EditorImportPlugin
         try
         {
             return JsonSerializer.Deserialize<DependenciesCache>(file?.GetAsText() ?? "{}")
-                ?? new DependenciesCache();
+                   ?? new DependenciesCache();
         }
         catch (JsonException)
         {

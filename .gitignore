@@ -7,5 +7,6 @@
 .godot/
 
 *.csproj.user
+*.sln.DotSettings.user
 
 export_presets.cfg

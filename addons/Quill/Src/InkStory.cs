@@ -12,7 +12,7 @@ namespace Quill;
 
 [Tool]
 #if GODOT4_1_OR_GREATER
-[GlobalClass, Icon("../GodotInk.svg")]
+[GlobalClass, Icon("../Quill.svg")]
 #endif
 public partial class InkStory : Resource
 {
@@ -31,7 +31,7 @@ public partial class InkStory : Resource
     [Signal]
     public delegate void ErrorErrorEventHandler(string message);
 
-    protected virtual string RawStory
+    internal virtual string RawStory
     {
         get => rawStory;
         set

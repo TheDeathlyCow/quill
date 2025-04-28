@@ -6,7 +6,7 @@ namespace Quill;
 
 public partial class StubInkStory : InkStory
 {
-    protected override string RawStory
+    internal override string RawStory
     {
         get => base.RawStory;
         set
