@@ -17,6 +17,7 @@ func _enter_tree() -> void:
 
 	var main_panel_scene: PackedScene = load(src_path.path_join("QuillPanel.tscn")) as PackedScene
 	_main_panel = main_panel_scene.instantiate() as Control
+	EditorInterface.get_editor_main_screen().add_child(_main_panel)
 	_make_visible(false)
 	
 	var fs : EditorFileSystem = get_editor_interface().get_resource_filesystem()

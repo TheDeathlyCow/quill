@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cf4a6picat4db" path="res://addons/Quill/Src/QuillPanel.cs" id="1_k13sk"]
 
-[node name="QuillPanel" type="Control"]
+[node name="QuillPanel" type="Control" node_paths=PackedStringArray("_editor")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,6 +12,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_k13sk")
+_editor = NodePath("VBoxContainer/Content/HBoxContainer/Editor/CodeEdit")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -21,29 +22,60 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Toolbar" type="Control" parent="VBoxContainer"]
+[node name="ToolBar" type="Control" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Toolbar"]
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/ToolBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.187176, 0.187176, 0.187176, 1)
 
 [node name="Content" type="Control" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 9.0
+size_flags_stretch_ratio = 10.0
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Content"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Content"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.316669, 0.110967, 0.107627, 1)
+
+[node name="FileExplorer" type="Control" parent="VBoxContainer/Content/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.13
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Content/HBoxContainer/FileExplorer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 1, 1)
+
+[node name="Editor" type="Control" parent="VBoxContainer/Content/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CodeEdit" type="CodeEdit" parent="VBoxContainer/Content/HBoxContainer/Editor"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Once upon a time..."
+gutters_draw_line_numbers = true
+code_completion_enabled = true
+indent_use_spaces = true
+indent_automatic = true
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true

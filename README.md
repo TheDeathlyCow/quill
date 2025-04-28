@@ -27,7 +27,7 @@ official [engine documentation](https://docs.godotengine.org/).
 
 3. Build your project once.
 
-4. Enable **GodotInk** in your project settings.
+4. Enable **Quill** in your project settings.
 
 ## License
 
