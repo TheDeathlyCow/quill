@@ -1,7 +1,7 @@
 // Character variables. We track just two, using a +/- scale
 VAR forceful = 0
 VAR evasive = 0
-// editssss
+// editsss
 
 // Inventory Items
 VAR teacup = false

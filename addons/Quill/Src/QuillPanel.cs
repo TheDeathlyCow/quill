@@ -18,7 +18,7 @@ public partial class QuillPanel : Control
 
     private bool dirty = false;
 
-    private InkStory? story = null;
+    private string? storyPath = null;
 
     public override void _Ready()
     {
@@ -27,13 +27,13 @@ public partial class QuillPanel : Control
 
         fileDialog = new EditorFileDialog()
         {
-            FileMode = EditorFileDialog.FileModeEnum.OpenFile,
-            Access = EditorFileDialog.AccessEnum.Resources
+            FileMode = EditorFileDialog.FileModeEnum.OpenFile, Access = EditorFileDialog.AccessEnum.Resources
         };
-        
+        fileDialog.AddFilter("*.ink", "Ink stories");
         fileDialog.FileSelected += LoadStory;
+
         AddChild(fileDialog);
-        
+
         loadButton.Pressed += () => fileDialog.PopupCenteredClamped(new Vector2I(1050, 700), 0.8f);
 
         saveButton.Pressed += SaveStory;
@@ -57,44 +57,43 @@ public partial class QuillPanel : Control
 
     private void LoadStory(string path)
     {
-        try
-        {
-            story = ResourceLoader.Load<InkStory>(path, null, ResourceLoader.CacheMode.Ignore);
-            FileAccess file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
-            if (file == null)
-            {
-                throw new InvalidCastException();
-            }
+        storyPath = path;
 
-            editor.Text = file.GetAsText();
-        }
-        catch (InvalidCastException)
+        using FileAccess file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+        if (file == null)
         {
-            GD.PrintErr($"{path} is not a valid ink story. "
-                        + "Please make sure it was imported with `is_main_file` set to `true`.");
+            GD.PushError(FileAccess.GetOpenError());
+            return;
         }
+
+        editor.Text = file.GetAsText();
     }
 
     private void SaveStory()
     {
-        if (story != null)
+        if (dirty && storyPath != null)
         {
-            FileAccess file = FileAccess.Open(story.ResourcePath, FileAccess.ModeFlags.Write);
-            
-            if (file.GetError() != Error.Ok)
+            using (FileAccess? file = FileAccess.Open(storyPath, FileAccess.ModeFlags.Write))
             {
-                GD.PushError("Unable to access story file: "+ file.GetError());
-                return;
-            }
+                if (file == null || file.GetError() != Error.Ok)
+                {
+                    GD.PushError(FileAccess.GetOpenError());
+                    return;
+                }
 
-            file.StoreString(editor.Text);
-            file.Close();
-            ResourceSaver.Save(story);
+                file.StoreString(editor.Text);
+            }
             
-            EditorInterface.Singleton.GetResourceFilesystem().ReimportFiles([ story.ResourcePath ]);
-            EditorInterface.Singleton.EditResource(story);
+            EditorInterface.Singleton.GetResourceFilesystem().UpdateFile(storyPath);
+            EditorInterface.Singleton.GetResourceFilesystem().ReimportFiles([storyPath]);
             
+            //EditorInterface.Singleton.EditResource(story);
+            dirty = false;
             GD.Print("Saved story");
+        }
+        else
+        {
+            GD.Print("Nothing to save");
         }
     }
 }
